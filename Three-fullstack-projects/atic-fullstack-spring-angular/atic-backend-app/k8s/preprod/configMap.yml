@@ -1,0 +1,22 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cita-dev-ns
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+  namespace: cita-preprod-ns
+data:
+  SPRING_PROFILES_ACTIVE: preprod
+  MYSQL_DATABASE: cita-preprod-db
+
+
+
+
+
+

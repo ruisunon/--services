@@ -1,0 +1,64 @@
+package io.cita.app.resource.v1;
+
+import io.cita.app.model.dto.SaloonDto;
+import io.cita.app.model.dto.request.ClientPageRequest;
+import io.cita.app.model.dto.response.api.ApiResponse;
+import io.cita.app.service.SaloonService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("${app.api-version}" + "/saloons")
+@Slf4j
+@RequiredArgsConstructor
+public class SaloonResource {
+	
+	private final SaloonService saloonService;
+	
+	@GetMapping
+	public ResponseEntity<ApiResponse<Page<SaloonDto>>> findAll(@RequestParam final Map<String, String> params) {
+		log.info("** Find all saloons.. *");
+		final var saloons = this.saloonService.findAll(ClientPageRequest.from(params));
+		return ResponseEntity.ok(new ApiResponse<>(saloons.toList().size(), HttpStatus.OK, true, saloons));
+	}
+	
+	@GetMapping("/locations/state/{state}")
+	public ResponseEntity<ApiResponse<Page<SaloonDto>>> findAllByLocationState(@PathVariable final String state, 
+			@RequestParam final Map<String, String> params) {
+		log.info("** Find all saloons by location state.. *");
+		final var saloons = this.saloonService.findAllByLocationState(state, ClientPageRequest.from(params));
+		return ResponseEntity.ok(new ApiResponse<>(saloons.toList().size(), HttpStatus.OK, true, saloons));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<SaloonDto>> findById(@PathVariable final String id) {
+		log.info("** Find by id.. *");
+		return ResponseEntity.ok(new ApiResponse<>(1, HttpStatus.OK, true, 
+				this.saloonService.findById(Integer.parseInt(id))));
+	}
+	
+	@GetMapping("/identifier/{identifier}")
+	public ResponseEntity<ApiResponse<SaloonDto>> findByIdentifier(@PathVariable final String identifier) {
+		log.info("** Find by identifier.. *");
+		return ResponseEntity.ok(new ApiResponse<>(1, HttpStatus.OK, true, 
+				this.saloonService.findByIdentifier(identifier.strip())));
+	}
+	
+	@GetMapping("/code/{code}")
+	public ResponseEntity<ApiResponse<Page<SaloonDto>>> findAllByCode(@PathVariable final String code) {
+		log.info("** Find all salonns by code.. *");
+		final var saloons = this.saloonService.findAllByCode(code);
+		return ResponseEntity.ok(new ApiResponse<>(saloons.toList().size(), HttpStatus.OK, true, saloons));
+	}
+	
+}
+
+
+
+

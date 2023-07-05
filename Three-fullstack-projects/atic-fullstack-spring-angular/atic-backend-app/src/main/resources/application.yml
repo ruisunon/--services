@@ -1,0 +1,67 @@
+
+server:
+  port: ${SERVER_PORT:8400}
+
+app:
+  api-version: /api/v1
+  security:
+    jwt:
+      token-expires-after: 604800000 # weak in millis
+  client:
+    domains: http://localhost:4200/, http://localhost:80/, http://cita-frontend-app:4200/, http://cita-frontend-app:80/
+
+spring:
+  application:
+    name: CITA-BACKEND-APP
+  profiles:
+    active:
+      - ${SPRING_PROFILES_ACTIVE:@activatedProperties@}
+  #zipkin:
+  #  base-url: http://${SPRING_ZIPKIN_BASE_HOST:localhost}:9411/
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: 6379
+  jackson:
+    serialization:
+      indent-output: true
+  jpa:
+    open-in-view: false
+  task:
+    scheduling:
+      pool:
+        size: 2
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 256MB
+      max-request-size: 256MB
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:cita.team.mail@gmail.com}
+    password: ${SPRING_MAIL_PASSWORD:@spring.mail.password@}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enabled: true
+            required: true
+  config:
+    import:
+      - 'optional:import/secrets/mail-secrets.yml'
+
+management:
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+
+
+
+
+
+

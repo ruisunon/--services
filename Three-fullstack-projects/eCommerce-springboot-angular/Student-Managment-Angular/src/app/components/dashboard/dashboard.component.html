@@ -1,0 +1,36 @@
+<div class="input-group mb-3" style="width: 350px; margin-left: 450px; margin-top: 20px;" [formGroup]="validateForm">
+    <input type="text" class="form-control" formControlName="title" placeholder="Write username to search"
+        aria-label="Write username to search" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+        (click)="searchStudentByName()">Search</button>
+</div>
+
+
+<ng-container *ngIf="students">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Father Name</th>
+                <th scope="col">Mother Name</th>
+                <th scope="col">Posted By</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students">
+                <th scope="row">{{student.name}}</th>
+                <td>{{student.fatherName}}</td>
+                <td>{{student.motherName}}</td>
+                <td>{{student.postedBy}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" routerLink="/fee/{{student.id}}">Fee</button>
+                    <button type="button" class="btn btn-success" style="margin-left: 10px;"
+                        routerLink="/student/{{student.id}}">Update</button>
+                    <button type="button" class="btn btn-danger" style="margin-left: 10px;"
+                        (click)="deleteStudent(student.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>

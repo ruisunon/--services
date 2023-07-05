@@ -1,0 +1,15 @@
+<form style="width: 400px; margin-left: 450px; margin-top: 100px;" [formGroup]="validateForm">
+    <div class="row mb-3">
+        <label for="inputName3" class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-9">
+            <h1>Pay Fee</h1>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="amount" class="col-sm-3 col-form-label">Amount:</label>
+        <div class="col-sm-9">
+            <input type="number" class="form-control" id="amount" formControlName="amount">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="payFee()">Pay</button>
+</form>

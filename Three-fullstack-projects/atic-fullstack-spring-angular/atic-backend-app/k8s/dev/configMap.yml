@@ -1,0 +1,23 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cita-dev-ns
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+  namespace: cita-dev-ns
+data:
+  SPRING_PROFILES_ACTIVE: dev
+  # SPRING_DATASOURCE_URL: 
+  DB_NAME: cita-dev-db
+
+
+
+
+
+
