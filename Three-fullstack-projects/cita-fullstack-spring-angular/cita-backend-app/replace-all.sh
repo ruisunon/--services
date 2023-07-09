@@ -9,7 +9,7 @@ echo "Existing string?"
 read existing
 echo "Replacement string?"
 read replacement
-echo "Replacing all occurences of $existing with $replacement in files matching $filepattern"
+echo "Replacing all occurrences of $existing with $replacement in files matching $filepattern"
 
 find . -type f -name $filepattern -print0 | xargs -0 sed -i -e "s/$existing/$replacement/g"
 

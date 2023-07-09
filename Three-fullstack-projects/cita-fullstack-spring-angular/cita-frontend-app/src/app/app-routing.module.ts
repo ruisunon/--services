@@ -6,42 +6,44 @@ import { AuthenticationComponent } from './component/authentication/authenticati
 import { ContactComponent } from './component/contact/contact.component';
 import { Error404Component } from './component/error/error404/error404.component';
 import { HomeComponent } from './component/home/home.component';
-import { LogoutComponent } from './component/logout/logout.component';
+
 import { RegistrationComponent } from './component/registration/registration.component';
-import { IndexComponent as CustomerIndexComponent } from './component/workspace/customer/index/index.component';
-import { ProfileComponent as CustomerProfileComponent } from './component/workspace/customer/profile/profile.component';
-import { IndexComponent as WorkerIndexComponent } from './component/workspace/worker/index/index.component';
-import { ProfileComponent as WorkerProfileComponent } from './component/workspace/worker/profile/profile.component';
-import { IndexComponent as ManagerIndexComponent } from './component/workspace/manager/index/index.component';
-import { ProfileComponent as ManagerProfileComponent } from './component/workspace/manager/profile/profile.component';
-import { IndexComponent as OwnerIndexComponent } from './component/workspace/owner/index/index.component';
-import { ProfileComponent as OwnerProfileComponent } from './component/workspace/owner/profile/profile.component';
+
 import { CustomerGuard } from './guard/customer.guard';
 import { WorkerGuard } from './guard/worker.guard';
 import { ManagerGuard } from './guard/manager.guard';
 import { OwnerGuard } from './guard/owner.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { RegistrationGuard } from './guard/registration.guard';
-import { FavouriteComponent as CustomerFavouriteComponent } from './component/workspace/customer/favourite/favourite.component';
-import { RatingComponent as CustomerRatingComponent } from './component/workspace/customer/rating/rating.component';
-import { ReservationComponent as CustomerReservationComponent } from './component/workspace/customer/reservation/reservation.component';
-import { ReservationDetailsComponent as CustomerReservationDetailsComponent } from './component/workspace/customer/reservation/reservation-details/reservation-details.component';
-import { AssignedWorkerComponent as CustomerAssignedWorkerComponent } from './component/workspace/customer/reservation/assigned-worker/assigned-worker.component';
 import { SaloonComponent } from './component/saloon/saloon.component';
 import { LocationComponent } from './component/location/location.component';
 import { SaloonDetailComponent } from './component/saloon/saloon-detail/saloon-detail.component';
-import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar/saloon-calendar.component';
 import { SaloonDetailGuard } from './guard/saloon-detail.guard';
-import { ReservationComponent as WorkerReservationComponent } from './component/workspace/worker/reservation/reservation.component';
-import { ReservationCalendarComponent as WorkerReservationCalendarComponent } from './component/workspace/worker/reservation/reservation-calendar/reservation-calendar.component';
-import { ReservationDetailsComponent as WorkerReservationDetailsComponent } from './component/workspace/worker/reservation/reservation-details/reservation-details.component';
-import { ReservationComponent as ManagerReservationComponent } from './component/workspace/manager/reservation/reservation.component';
-import { ReservationCalendarComponent as ManagerReservationCalendarComponent } from './component/workspace/manager/reservation/reservation-calendar/reservation-calendar.component';
-import { ReservationDetailComponent as ManagerReservationDetailComponent } from './component/workspace/manager/reservation/reservation-detail/reservation-detail.component';
-import { WorkerComponent as ManagerWorkerComponent } from './component/workspace/manager/worker/worker.component';
-import { WorkerAssignmentComponent as ManagerWorkerAssignmentComponent } from './component/workspace/manager/worker/worker-assignment/worker-assignment.component';
-import { CategoryComponent as ManagerCategoryComponent } from './component/workspace/manager/category/category.component';
-import { ServiceDetailComponent as ManagerServiceDetailComponent } from './component/workspace/manager/service-detail/service-detail.component';
+import { SaloonCalendarComponent } from './component/saloon/saloon-calendar/saloon-calendar.component';
+import { LogoutComponent } from './component/logout/logout.component';
+import { CustomerIndexComponent } from './workspace/customer/index/customer-index.component';
+import { CustomerProfileComponent } from './workspace/customer/profile/customer-profile.component';
+import { CustomerRatingComponent } from './workspace/customer/rating/customer-rating.component';
+import { CustomerReservationComponent } from './workspace/customer/reservation/customer-reservation.component';
+import { ManagerCategoryComponent } from './workspace/manager/category/manager-category.component';
+import { ManagerIndexComponent } from './workspace/manager/index/manager-index.component';
+import { ManagerProfileComponent } from './workspace/manager/profile/manager-profile.component';
+import { ManagerReservationComponent } from './workspace/manager/reservation/manager-reservation.component';
+import { ManagerServiceDetailComponent } from './workspace/manager/service-detail/manager-service-detail.component';
+import { ManagerWorkerComponent } from './workspace/manager/worker/manager-worker.component';
+import { OwnerIndexComponent } from './workspace/owner/index/owner-index.component';
+import { OwnerProfileComponent } from './workspace/owner/profile/owner-profile.component';
+import { WorkerIndexComponent } from './workspace/worker/index/worker-index.component';
+import { WorkerProfileComponent } from './workspace/worker/profile/worker-profile.component';
+import { WorkerReservationComponent } from './workspace/worker/reservation/worker-reservation.component';
+import { CustomerAssignedWorkerComponent } from '@customer/reservation/customer-assigned-worker/customer-assigned-worker.component';
+import { ManagerReservationCalendarComponent } from '@manager/reservation/reservation-calendar/manager-reservation-calendar.component';
+import { ManagerReservationDetailsComponent } from '@manager/reservation/manager-reservation-details/manager-reservation-details.component';
+import { ManagerWorkerAssignmentComponent } from '@manager/worker/manager-worker-assignment/manager-worker-assignment.component';
+import { WorkerReservationCalendarComponent } from '@worker/reservation/reservation-calendar/worker-reservation-calendar.component';
+import { WorkerReservationDetailsComponent } from '@worker/reservation/reservation-details/worker-reservation-details.component';
+import { CustomerFavouriteComponent } from '@customer/customer-favourite/customer-favourite.component';
+
 
 const routes: Routes = [
   
@@ -76,8 +78,8 @@ const routes: Routes = [
           { path: "index", redirectTo: "" },
           { path: "profile", component: CustomerProfileComponent },
           { path: "reservations", component: CustomerReservationComponent },
-          { path: "reservations/:reservationId", component: CustomerReservationDetailsComponent },
-          { path: "reservations/:reservationIdentifier", component: CustomerReservationDetailsComponent }, // ************
+          { path: "reservations/:reservationId", component: CustomerReservationComponent },
+          { path: "reservations/:reservationIdentifier", component: CustomerReservationComponent }, // ************
           { path: "reservations/assigned/:workerId", component: CustomerAssignedWorkerComponent },
           { path: "reservations/assigned/:workerIdentifier", component: CustomerAssignedWorkerComponent }, // ************
           { path: "favourites", component: CustomerFavouriteComponent },
@@ -106,8 +108,8 @@ const routes: Routes = [
           { path: "profile", component: ManagerProfileComponent },
           { path: "reservations", component: ManagerReservationComponent },
           { path: "reservations/calendar", component: ManagerReservationCalendarComponent },
-          { path: "reservations/:reservationId", component: ManagerReservationDetailComponent },
-          { path: "reservations/:reservationIdentifier", component: ManagerReservationDetailComponent }, // ************
+          { path: "reservations/:reservationId", component: ManagerReservationComponent },
+          { path: "reservations/:reservationIdentifier", component: ManagerReservationDetailsComponent }, // ************
           { path: "workers", component: ManagerWorkerComponent },
           { path: "workers/assignments/:workerId", component: ManagerWorkerAssignmentComponent },
           { path: "workers/assignments/:workerIdentifier", component: ManagerWorkerAssignmentComponent }, // ************

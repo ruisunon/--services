@@ -52,9 +52,7 @@ export class ManagerWorkerServiceService {
       return payload;
     }));
   }
-  
-  
-  
+   
 }
 
 

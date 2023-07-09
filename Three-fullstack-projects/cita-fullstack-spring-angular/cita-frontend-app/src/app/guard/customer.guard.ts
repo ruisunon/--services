@@ -1,19 +1,16 @@
 
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateChild, CanActivateChildFn, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { UserRoleBasedAuthority } from '../model/user-role-based-authority';
 import { AuthenticationService } from '../service/authentication.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CustomerGuard implements CanActivateChild {
+export function CustomerGuard(): CanActivateChildFn {
   
-  constructor(private authenticationService: AuthenticationService) {}
-  
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  return () => {
+
+    const oauthService: AuthenticationService = inject(AuthenticationService);
       
-    const isUserLoggedIn: boolean = this.authenticationService.isLoggedIn();
+    const isUserLoggedIn: boolean = oauthService.isLoggedIn();
     
     if (isUserLoggedIn) {
       const userRole: string = `${sessionStorage.getItem(`userRole`)}`;
@@ -22,8 +19,6 @@ export class CustomerGuard implements CanActivateChild {
     else
       return false;
   }
-  
-  
   
 }
 

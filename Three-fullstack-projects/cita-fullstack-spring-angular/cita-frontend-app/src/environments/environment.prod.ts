@@ -1,13 +1,17 @@
 
+
 const HOST_URL: string = "http://localhost:8400";
-const API_URL_CONTEXT_V0: string = "/api/v0";
+const API_URL_CONTEXT_V1: string = "/api/v1";
 
 export const environment = {
-  staging: false,
+  staging: true,
   preprod: false,
   production: true,
-  API_URL: HOST_URL + API_URL_CONTEXT_V0,
+  API_URL: HOST_URL + API_URL_CONTEXT_V1,
 };
+
+
+
 
 
 

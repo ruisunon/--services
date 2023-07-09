@@ -38,8 +38,6 @@ export class AppComponent implements OnInit {
     this.healthLivenessService.onOpenModal(action);
   }
   
-  
-  
 }
 
 

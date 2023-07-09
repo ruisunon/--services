@@ -1,29 +1,21 @@
 
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class SaloonDetailGuard implements CanActivate {
-  
-  constructor(private authenticationService: AuthenticationService,
-    private router: Router) {}
-  
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const isLoggedIn: boolean = this.authenticationService.isLoggedIn();
+
+export function SaloonDetailGuard(): CanActivateFn {
+  return () => {
+    const authenticationService: AuthenticationService = inject(AuthenticationService);
+    const router: Router = inject(Router);
+    const isLoggedIn: boolean = authenticationService.isLoggedIn();
     if (!isLoggedIn)
-      this.router.navigateByUrl(`/login`);
+      router.navigateByUrl(`/login`);
     return isLoggedIn;
-  }
-  
-  
-  
+  };
+
+
 }
-
-
-
 
 
 

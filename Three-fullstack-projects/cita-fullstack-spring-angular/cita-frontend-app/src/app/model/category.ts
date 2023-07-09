@@ -10,8 +10,7 @@ export class Category {
     public parentCategory: Category | null | undefined,
     public saloon: Saloon) {
   }
-  
-  
+   
   
 }
 

@@ -11,8 +11,6 @@ export class ServiceDetailRequest {
     public categoryId: number) {
   }
   
-  
-  
 }
 
 

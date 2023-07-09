@@ -1,19 +1,16 @@
 
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateChild, CanActivateChildFn, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { UserRoleBasedAuthority } from '../model/user-role-based-authority';
 import { AuthenticationService } from '../service/authentication.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class OwnerGuard implements CanActivateChild {
+export function OwnerGuard(): CanActivateChildFn {
   
-  constructor(private authenticationService: AuthenticationService) { }
+  const oauthService: AuthenticationService = inject(AuthenticationService);
   
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  return () =>  {
 
-    const isUserLoggedIn: boolean = this.authenticationService.isLoggedIn();
+    const isUserLoggedIn: boolean =oauthService.isLoggedIn();
     
     if (isUserLoggedIn) {
       const userRole: string = `${sessionStorage.getItem(`userRole`)}`;
@@ -22,7 +19,5 @@ export class OwnerGuard implements CanActivateChild {
     else
       return false;
   }
-  
-  
   
 }

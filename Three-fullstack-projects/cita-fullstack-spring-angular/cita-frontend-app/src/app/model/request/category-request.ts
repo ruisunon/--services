@@ -8,8 +8,6 @@ export class CategoryRequest {
     public saloonId: number) {
   }
   
-  
-  
 }
 
 
