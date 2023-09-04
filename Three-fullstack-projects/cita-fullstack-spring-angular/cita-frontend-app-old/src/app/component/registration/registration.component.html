@@ -1,0 +1,125 @@
+
+<div class="container h-100" id="main-container">
+  <div class="row h-100">
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+      <div class="d-table-cell align-middle">
+
+        <div class="text-center mt-4">
+          <h1 class="h2">Welcome</h1>
+          <p class="lead">
+            Register your account..<br>
+            <mark>
+              <i class="text-secondary"><span>Inputs marked with <span class="text-danger">*</span> are
+                  required</span></i>
+            </mark>
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="m-sm-4">
+              <div class="text-center">
+                <img src="{{ randomImgUrl }}" alt="User :)"
+                  class="img-fluid rounded-circle" width="132" height="132">
+              </div>
+              <form #registerForm="ngForm">
+                <div class="form-group">
+                  <label for="firstname">Firstname <span class="text-danger">*</span></label>
+                  <input type="text" ngModel name="firstname" class="form-control" id="firstname"
+                    placeholder="firstname.." autofocus required>
+                </div>
+                <div class="form-group">
+                  <label for="lastname">Lastname <span class="text-danger">*</span></label>
+                  <input type="text" ngModel name="lastname" class="form-control" id="lastname" placeholder="lastname.."
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" ngModel name="email" class="form-control" id="email" placeholder="email.."
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone <span class="text-danger">*</span></label>
+                  <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="phone..">
+                </div>
+                <div class="form-group">
+                  <label for="birthdate">Birthdate</label>
+                  <input type="date" ngModel name="birthdate" class="form-control" id="birthdate"
+                    placeholder="birthdate..">
+                </div>
+                <div class="form-group">
+                  <label for="username">Username <span class="text-danger">*</span></label>
+                  <input type="text" ngModel name="username" class="form-control" id="username" placeholder="username.."
+                    required>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password <span class="text-danger">*</span></label>
+                  <input type="password" ngModel name="password" class="form-control" id="password"
+                    placeholder="password.." required>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm password <span class="text-danger">*</span></label>
+                  <input type="password" ngModel name="confirmPassword" class="form-control" id="confirmPassword"
+                    placeholder="confirmPassword.." required>
+                </div>
+                <div class="form-group">
+                  <label for="role">User role <span class="text-danger">*</span></label>
+                  <select ngModel name="role" class="form-select" aria-label="Default select example">
+                    <option selected value="">==> Select your Role <==</option>
+                    <option value="CUSTOMER">CUSTOMER</option>
+                    <option value="WORKER">WORKER</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="OWNER">OWNER</option>
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button [disabled]="registerForm.invalid" (click)="onRegister(registerForm)" type="submit"
+                    class="btn btn-info">Register</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><strong>Pay attention!</strong></h5>
+        <button onclick="document.getElementById('register').click()" type="button" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <p>
+          <span *ngIf="msg == null"><span class="text-danger">Error
+              when registration!
+              will be resolved later..</span> </span>
+          <span *ngIf="msg != null"><span
+              class="text-danger">{{ msg }}</span> </span>
+        </p>
+        
+        <div class="modal-footer">
+          <button type="button" onclick="document.getElementById('register').click()"
+            id="register-form" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
