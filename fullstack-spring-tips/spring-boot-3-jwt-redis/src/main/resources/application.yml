@@ -1,0 +1,40 @@
+spring:
+  #profiles:
+    #active: jdbc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: ecommerce
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: redis
+
+application:
+  security:
+    jwt:
+      secret-key: 40310q34E63526UIE6556A586E327RyGrids250645367566B5970
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
+server:
+  port: 8080
+
+flyway:
+  locations:
+    - classpath:sql
+  sqlMigrationPrefix: v
+
+useExpiringMapToBlackListAccessToken: true

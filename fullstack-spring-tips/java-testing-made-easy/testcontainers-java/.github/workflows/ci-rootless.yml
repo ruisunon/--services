@@ -1,0 +1,37 @@
+name: CI-Docker-Rootless
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'README.md'
+      - 'RELEASING.md'
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'README.md'
+      - 'RELEASING.md'
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup rootless Docker
+        uses: ScribeMD/rootless-docker@0.2.2
+      - name: Remove Docket root socket
+        run: sudo rm -rf /var/run/docker.sock
+      - name: Setup Gradle Build Action
+        uses: gradle/gradle-build-action@v2
+      - name: Build with Gradle
+        run: ./gradlew --no-daemon --scan testcontainers:test --tests '*GenericContainerRuleTest'

@@ -1,0 +1,99 @@
+jwt:
+  secret-key: ecf1222c-88fd-47f3-988f-bdd78bade1ad
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    git:
+      mode: full
+server:
+  port: 8765
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    org.springframework.http.server.reactive: INFO
+    org.springframework.web.reactive: INFO
+    org.springframework.boot.autoconfigure.web: INFO
+    reactor.netty: INFO
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      metrics:
+        enabled: true
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 5s
+        wiretap: false
+      routes:
+      - id: order-service
+        predicates:
+        - Path=/order-service/**
+        uri: lb://order-service
+        filters:
+          - name: CircuitBreaker
+            args:
+              name: catalogService
+              fallbackUri: forward:/catalog-fallback
+          - name: Retry
+            args:
+              retries: 3
+              method: GET
+              backoff:
+                firstBackoff: 50ms
+                maxBackoff: 500ms
+      - id: inventory-service
+        predicates:
+        - Path=/inventory-service/**
+        uri: lb://inventory-service
+      - id: catalog-service
+        predicates:
+        - Path=/catalog-service/**
+        uri: lb://catalog-service
+      - id: payment-service
+        predicates:
+        - Path=/payment-service/**
+        uri: lb://payment-service
+  config:
+    import: "optional:configserver:${CONFIG_SERVER:http://localhost:8888}/"
+  webflux:
+    problemdetails:
+      enabled: true
+#    base-path: /${spring.application.name}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      catalogService:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        registerHealthIndicator: true
+  timelimiter:
+    instances:
+      catalogService:
+        timeoutDuration: 3s
+
+springdoc:
+  cache:
+    disabled: true
+# We should display api-gateway as well
+  swagger-ui:
+    urls[0]:
+      name: api-gateway
+      url: /v3/api-docs
+# adding this so that 
+  group-configs[0]:
+    group: api-service
+    pathsToMatch: /**
+#  packagesToScan: com.rxs.api.gateway.web

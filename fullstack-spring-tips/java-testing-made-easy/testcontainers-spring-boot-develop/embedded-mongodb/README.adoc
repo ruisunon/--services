@@ -1,0 +1,48 @@
+=== embedded-mongodb
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-mongodb</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.mongodb.enabled` `(true|false, default is true)`
+* `embedded.mongodb.reuseContainer` `(true|false, default is false)`
+* `embedded.mongodb.dockerImage` `(default is '5.0.14-focal')`
+** Image versions on https://hub.docker.com/_/mongo?tab=tags[dockerhub]
+* `embedded.mongodb.host` `(default is localhost)`
+* `embedded.mongodb.port` `(default is 27017)`
+* `embedded.mongodb.username`
+* `embedded.mongodb.password`
+* `embedded.mongodb.database` `(default is test)`
+* `embedded.toxiproxy.proxies.mongodb.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-mongodb` container.
+
+
+==== Produces
+
+* `embedded.mongodb.host`
+* `embedded.mongodb.port`
+* `embedded.mongodb.username`
+* `embedded.mongodb.password`
+* `embedded.mongodb.database`
+* `embedded.mongodb.toxiproxy.host`
+* `embedded.mongodb.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy mongodbContainerProxy`
+
+==== Example
+
+To auto-configure `spring-data-mongodb` use these properties in your test `application.properties`:
+
+./src/test/resources/application.properties
+[source,properties]
+----
+spring.data.mongodb.uri=mongodb://${embedded.mongodb.host}:${embedded.mongodb.port}/${embedded.mongodb.database}
+----

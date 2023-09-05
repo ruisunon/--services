@@ -1,0 +1,125 @@
+{
+  "groups": [
+    {
+      "name": "embedded.keycloak",
+      "description": "Configuration properties related to embedded Keycloak."
+    }
+  ],
+  "properties": [
+    {
+      "name": "embedded.keycloak.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true",
+      "description": "Whether embedded Keycloak should be enabled or not."
+    },
+    {
+      "name": "embedded.keycloak.wait-timeout-in-seconds",
+      "type": "java.lang.String",
+      "defaultValue": "60",
+      "description": "Maximum time in seconds to until embedded Keycloak should have come up."
+    },
+    {
+      "name": "embedded.keycloak.docker-image",
+      "type": "java.lang.String",
+      "defaultValue": "See com.playtika.test.keycloak.KeycloakProperties.DEFAULT_KEYCLOAK_VERSION"
+    },
+    {
+      "name": "embedded.keycloak.command",
+      "type": "java.lang.String[]",
+      "description": "The command string issued to the container.",
+      "defaultValue": "See com.playtika.test.keycloak.KeycloakProperties.DEFAULT_COMMAND"
+    },
+    {
+      "name": "embedded.keycloak.authBasePath",
+      "type": "java.lang.String",
+      "description": "The relative auth URL of the container. Maybe needs to be tweaked for the WaitStrategy for different Keycloak versions (/auth vs. /auth/).",
+      "defaultValue": "See com.playtika.test.keycloak.KeycloakProperties.DEFAULT_AUTH_BASE_URL"
+    },
+    {
+      "name": "embedded.keycloak.admin-user",
+      "type": "java.lang.String",
+      "description": "The admin username to use.",
+      "defaultValue": "admin"
+    },
+    {
+      "name": "embedded.keycloak.admin-password",
+      "type": "java.lang.String",
+      "description": "The Keycloak admin password to use.",
+      "defaultValue": "letmein"
+    },
+    {
+      "name": "embedded.keycloak.import-file",
+      "type": "java.lang.String",
+      "description": "Classpath location of a JSON file to for importing resources into Keycloak. No prefix is needed."
+    },
+    {
+      "name": "embedded.keycloak.db-vendor",
+      "type": "java.lang.String",
+      "description": "If this is empty then it tries to autodetected. Else it should be one of: h2, postgres, mysql, mariadb, oracle, mssql."
+    },
+    {
+      "name": "embedded.keycloak.db-addr",
+      "type": "java.lang.String",
+      "description": "Specify hostname of the database (optional)."
+    },
+    {
+      "name": "embedded.keycloak.db-port",
+      "type": "java.lang.String",
+      "description": "Specify port of the database (optional, default is DB vendor default port)."
+    },
+    {
+      "name": "embedded.keycloak.db-database",
+      "type": "java.lang.String",
+      "description": "Specify name of the database to use (optional, default is keycloak)."
+    },
+    {
+      "name": "embedded.keycloak.db-schema",
+      "type": "java.lang.String",
+      "description": "Specify name of the schema to use for DB that support schemas (optional, default is public on Postgres)."
+    },
+    {
+      "name": "embedded.keycloak.db-user",
+      "type": "java.lang.String",
+      "description": "Specify user to use to authenticate to the database (optional, default is ``)."
+    },
+    {
+      "name": "embedded.keycloak.db-user-file",
+      "type": "java.lang.String",
+      "description": "Specify user to authenticate to the database via file input (alternative to DB_USER)."
+    },
+    {
+      "name": "embedded.keycloak.db-password",
+      "type": "java.lang.String",
+      "description": "Specify user's password to use to authenticate to the database (optional, default is ``)."
+    },
+    {
+      "name": "embedded.keycloak.db-password-file",
+      "type": "java.lang.String",
+      "description": "Specify user's password to use to authenticate to the database via file input (alternative to DB_PASSWORD)."
+    }
+  ],
+  "hints": [
+    {
+      "name": "embedded.keycloak.enabled",
+      "values": [
+        {
+          "value": "true",
+          "description": "Enables configuration of Keycloak server on startup."
+        },
+        {
+          "value": "false",
+          "description": "Disables configuration of Keycloak server on startup."
+        }
+      ]
+    },
+    {
+      "name": "embedded.keycloak.docker-image",
+      "values": [
+        {
+          "value": "quay.io/keycloak/keycloak:21.0.0",
+          "description": "Default Keycloak image in version 21.0.0. Ref https://quay.io/keycloak/keycloak:21.0.0 for further info."
+        }
+      ]
+    }
+  ]
+}

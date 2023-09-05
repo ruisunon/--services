@@ -1,0 +1,157 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+jdbc:
+  datasource-proxy:
+    # enable and configure query logging
+    query:
+      # Enable logging all queries to the log.
+      enable-logging: true
+      # Severity of query logger.
+      log-level: DEBUG
+      # Name of query logger.
+      logger-name: datasource-query-logger
+    # Logging to use for logging queries.
+    logging: slf4j
+    # Use multiline output for logging query.
+    multiline: false
+    # How to Include the Bind Parameter Values in Spans
+    include-parameter-values: false
+    # Use json output for logging query.
+    json-format: false
+  # Specify jdbc.includes property. By default, the property is set to include(observe) all(CONNECTION, QUERY, FETCH) types.
+  includes: connection,fetch,query
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    sql: INFO
+    web: INFO
+    datasource-query-logger: INFO
+    '[org.apache.kafka.clients.Metadata]': WARN
+management:
+  # For Exemplars to work we need histogram buckets
+  metrics:
+    distribution:
+      percentiles-histogram:
+        all: true
+        http.server.requests: true
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      show-components: always
+  endpoints:
+    web:
+      exposure:
+        include: configprops,env,health,info,logfile,loggers,metrics,refresh,prometheus
+  info:
+    git:
+      mode: full
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    metrics:
+      export:
+        step: 10s
+server:
+  shutdown: graceful
+spring:
+  datasource:
+    hikari:
+      auto-commit: false
+  jmx:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        connection:
+          provider_disables_autocommit: true
+        generate_statistics: false
+        id:
+          new_generator_mappings: true
+          optimizer:
+            pooled:
+              preferred: pooled-lo
+        jdbc:
+          batch_size: 25
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+        query:
+          fail_on_pagination_over_collection_fetch: true
+          in_clause_parameter_padding: true
+    # show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    problemdetails:
+      enabled: true
+
+#SpringDoc Properties
+springdoc:
+  swagger-ui:
+    #For sorting endpoints alphabetically
+    operationsSorter: alpha
+    #For sorting tags alphabetically
+    tagsSorter: alpha
+---
+spring:
+  config:
+    activate:
+      on-profile: "docker"
+  datasource:
+    password: secret
+    url: jdbc:postgresql://postgresql:5432/appdb
+    username: appuser
+  kafka:
+    bootstrap-servers:
+    - kafka:29092
+eureka:
+  client:
+    service-url:
+      defaultZone: http://naming-server:8761/eureka/
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin-server:9411/api/v2/spans
+---
+spring:
+  config:
+    activate:
+      on-profile: "dockerLoki"
+  datasource:
+    password: secret
+    url: jdbc:postgresql://postgresql:5432/appdb
+    username: appuser
+  kafka:
+    bootstrap-servers:
+    - kafka:29092
+eureka:
+  client:
+    service-url:
+      defaultZone: http://naming-server:8761/eureka/
+---
+spring:
+  config:
+    activate:
+      on-profile: "native"
+    import: optional:configserver:http://localhost:8888/

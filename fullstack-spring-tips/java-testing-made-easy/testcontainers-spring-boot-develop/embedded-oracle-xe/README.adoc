@@ -1,0 +1,37 @@
+=== embedded-oracle-xe
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-oracle-xe</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.oracle.enabled` `(true|false, default is true)`
+* `embedded.oracle.reuseContainer` `(true|false, default is false)`
+* `embedded.oracle.waitTimeoutInSeconds` `(default is 60 seconds)`
+* `embedded.oracle.dockerImage` `(default is 'oracleinanutshell/oracle-xe-11g')`
+** Image versions on https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g/tags[dockerhub]
+* `embedded.oracle.user` `(default is 'system')`
+* `embedded.oracle.password` `(default is 'oracle')`
+* `embedded.oracle.initScriptPath` `(default is null)`
+* `embedded.toxiproxy.proxies.oracle.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-oracle` container.
+
+
+==== Produces
+
+* `embedded.oracle.host`
+* `embedded.oracle.port` (mapped TCP port)
+* `embedded.oracle.database` (set to 'xe')
+* `embedded.oracle.toxiproxy.host`
+* `embedded.oracle.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy oracleContainerProxy`
+
+// TODO: missing example

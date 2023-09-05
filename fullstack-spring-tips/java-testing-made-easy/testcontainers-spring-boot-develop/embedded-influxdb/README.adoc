@@ -1,0 +1,56 @@
+=== embedded-influxdb
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-influxdb</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.influxdb.enabled` `(true|false, default is true)`
+* `embedded.influxdb.reuseContainer` `(true|false, default is false)`
+* `embedded.influxdb.dockerImage` `(default is 'influxdb:2.5-alpine')`
+** Image versions on https://hub.docker.com/_/influxdb?tab=tags[dockerhub]
+* `embedded.influxdb.admin-user` `(default is 'admin')`
+* `embedded.influxdb.admin-password` `(default is 'admin')`
+* `embedded.influxdb.user` `(default is 'any-user')`
+* `embedded.influxdb.password` `(default is 'any-password')`
+* `embedded.influxdb.enable-http-auth` `(true|false, default is true)`
+* `embedded.influxdb.host` `(default is 'localhost')`
+* `embedded.influxdb.port` `(int, default is '8086')`
+* `embedded.influxdb.database` `(default is 'db')`
+* `embedded.toxiproxy.proxies.influxdb.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-influxdb` container.
+
+
+==== Produces
+
+* `embedded.influxdb.database`
+* `embedded.influxdb.host`
+* `embedded.influxdb.password`
+* `embedded.influxdb.port` (mapped HTTP port)
+* `embedded.influxdb.user`
+* `embedded.influxdb.toxiproxy.host`
+* `embedded.influxdb.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy influxdbContainerProxy`
+
+==== Example
+
+There is currently no starter library for using InfluxDB server version 1.x because it uses basic HTTP protocol to communicate.
+You can anyway create your own properties using those values for example in your test `application.yaml`:
+
+./src/test/resources/application.yaml
+[source,yaml]
+----
+influxdb:
+  url: http://${embedded.influxdb.host}:${embedded.influxdb.port}
+  user: ${embedded.influxdb.user}
+  password: ${embedded.influxdb.password}
+  database: ${embedded.influxdb.database}
+----

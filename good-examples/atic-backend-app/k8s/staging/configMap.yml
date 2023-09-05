@@ -1,0 +1,23 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cita-staging-ns
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+  namespace: cita-staging-ns
+data:
+  SPRING_PROFILES_ACTIVE: staging
+  MYSQL_DATABASE: cita-staging-db
+  DB_NAME: cita-staging-db
+
+
+
+
+
+

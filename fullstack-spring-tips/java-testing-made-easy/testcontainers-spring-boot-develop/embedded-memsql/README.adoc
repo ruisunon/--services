@@ -1,0 +1,46 @@
+=== embedded-memsql
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-memsql</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.memsql.enabled` `(true|false, default is true)`
+* `embedded.memsql.reuseContainer` `(true|false, default is false)`
+* `embedded.memsql.dockerImage` `(default is 'ghcr.io/singlestore-labs/singlestoredb-dev:0.2.5')`
+** Image versions on https://github.com/singlestore-labs/singlestoredb-dev-image[gitHub]
+[NOTE]
+====
+Singlestore docker image does not support ARM
+====
+* `embedded.memsql.waitTimeoutInSeconds` `(default is 60 seconds)`
+* `embedded.memsql.licenseKey` `(required licenseKey should be generated on https://www.singlestore.com/free/[singlestore])`
+* `embedded.toxiproxy.proxies.memsql.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-memsql` container.
+
+
+==== Produces
+
+* `embedded.memsql.port`
+* `embedded.memsql.host`
+* `embedded.memsql.schema`
+* `embedded.memsql.user`
+* `embedded.memsql.password`
+* `embedded.memsql.toxiproxy.host`
+* `embedded.memsql.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy memsqlContainerProxy`
+
+==== Notes
+
+* There should be at least 1.5 GB of RAM available for memsql to start
+* You can enable debug logs for `com.playtika.test` category to troubleshoot issues
+
+//TODO: example missing

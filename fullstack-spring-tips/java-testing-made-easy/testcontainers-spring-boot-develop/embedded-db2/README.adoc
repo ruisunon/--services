@@ -1,0 +1,38 @@
+=== embedded-db2
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-db2</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.db2.enabled` `(true|false, default is true)`
+* `embedded.db2.reuseContainer` `(true|false, default is false)`
+* `embedded.db2.dockerImage` `(default is 'ibmcom/db2:latest')`
+** Image versions: https://hub.docker.com/r/ibmcom/db2
+* `embedded.db2.user` `(default is db2inst1)`
+* `embedded.db2.password` `(default is foobar1234)`
+* `embedded.db2.database` `(default is test)`
+* `embedded.db2.acceptLicence` `(default is 'false')`
+* `embedded.db2.startupLogCheckRegex`
+* `embedded.db2.initScriptPath`
+* `embedded.toxiproxy.proxies.db2.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-db2` container.
+
+==== Produces
+
+* `embedded.db2.host`
+* `embedded.db2.port`
+* `embedded.db2.database`
+* `embedded.db2.user`
+* `embedded.db2.password`
+* `embedded.db2.toxiproxy.host`
+* `embedded.db2.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy db2ContainerProxy`

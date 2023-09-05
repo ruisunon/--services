@@ -1,0 +1,37 @@
+=== embedded-pulsar
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-pulsar</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.pulsar.enabled` `(true|false, default is true)`
+* `embedded.pulsar.docker-image` `(default is 'apachepulsar/pulsar:2.8.0')`
+** Image versions on https://hub.docker.com/r/apachepulsar/pulsar/tags[dockerhub]
+* `embedded.toxiproxy.proxies.pulsar.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-pulsar` container.
+
+
+==== Produces
+
+* `embedded.pulsar.brokerUrl`
+* `embedded.pulsar.httpServiceUrl`
+* `embedded.pulsar.toxiproxy.host`
+* `embedded.pulsar.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy pulsarContainerProxy`
+
+==== Example
+
+----
+PulsarClient pulsarClient = PulsarClient.builder()
+        .serviceUrl(environment.getProperty("embedded.pulsar.brokerUrl"))
+        .build();
+----

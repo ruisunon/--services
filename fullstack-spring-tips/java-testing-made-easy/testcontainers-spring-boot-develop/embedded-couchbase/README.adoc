@@ -1,0 +1,42 @@
+=== embedded-couchbase
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-couchbase</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.couchbase.enabled` `(true|false, default is true)`
+* `embedded.couchbase.reuseContainer` `(true|false, default is false)`
+* `embedded.couchbase.services` `(comma separated list, default is 'INDEX,KV,QUERY,SEARCH')`
+* `embedded.couchbase.bucketRamMb` `(default is '100')`
+* `embedded.couchbase.dockerImage` `(default is 'couchbase/server:7.0.0')`
+** Image versions on https://hub.docker.com/r/couchbase/server/tags[dockerhub]
+* `embedded.toxiproxy.proxies.couchbase.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-couchbase` container.
+
+
+==== Produces
+* `embedded.couchbase.bootstrapHttpDirectPort`
+** NOTE: this property is also produced as System property for https://github.com/couchbase/couchbase-jvm-core/blob/develop/src/main/java/com/couchbase/client/core/env/DefaultCoreEnvironment.java[couchbase java client]
+* `embedded.couchbase.bootstrapCarrierDirectPort`
+** NOTE: this property is also produced as System property for https://github.com/couchbase/couchbase-jvm-core/blob/develop/src/main/java/com/couchbase/client/core/env/DefaultCoreEnvironment.java[couchbase java client]
+* `embedded.couchbase.host`
+* `embedded.couchbase.bucket`
+* `embedded.couchbase.user`
+* `embedded.couchbase.password`
+* `embedded.couchbase.toxiproxy.host`
+* `embedded.couchbase.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy couchbaseContainerProxy`
+
+==== Notes
+
+* Versions of Couchbase 2.x/3.x are not functional via docker, consider use of https://github.com/couchbase/CouchbaseMock[CouchbaseMock].
+* Spring data couchbase do not allow customization of ports for couchbase client, see SpringDataTest in this repo for reference

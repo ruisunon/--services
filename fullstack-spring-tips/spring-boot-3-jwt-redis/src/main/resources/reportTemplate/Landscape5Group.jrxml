@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="15830ded-8f5e-4ade-8409-f4db64378e6f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="headerImgLeft" class="java.awt.Image">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="headerImgRight" class="java.awt.Image">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="headerText1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["অর্থ মন্ত্রণালয়"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="headerText2" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["এসপিবিএমইউ"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="headerText3" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["রিপোর্ট"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="headerText4" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["রিপোর্ট"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="authorizedSignature" class="net.sf.jasperreports.engine.JRImageRenderer"/>
+	<parameter name="reportDate" class="java.lang.String"/>
+	<parameter name="reportLocation" class="java.lang.String"/>
+	<parameter name="header1" class="java.lang.String"/>
+	<parameter name="header2" class="java.lang.String"/>
+	<parameter name="header3" class="java.lang.String"/>
+	<parameter name="header4" class="java.lang.String"/>
+	<parameter name="header5" class="java.lang.String"/>
+	<parameter name="header6" class="java.lang.String"/>
+	<parameter name="header7" class="java.lang.String"/>
+	<parameter name="header8" class="java.lang.String"/>
+	<parameter name="header9" class="java.lang.String"/>
+	<parameter name="header10" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["E:/TareQ/JAVA/newSPBMU/SpbmuWebNew/client/spbmuweb/web/WEB-INF/resourcesNew/reporttemplates/HeaderTemplatePortrait.jasper"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataSize" class="java.lang.Integer"/>
+	<parameter name="footer1" class="java.lang.String"/>
+	<parameter name="footer2" class="java.lang.String"/>
+	<parameter name="footer3" class="java.lang.String"/>
+	<parameter name="footer4" class="java.lang.String"/>
+	<parameter name="footer5" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="fieldSerial" class="java.lang.String"/>
+	<field name="field1" class="java.lang.String"/>
+	<field name="field2" class="java.lang.String"/>
+	<field name="field3" class="java.lang.String"/>
+	<field name="field4" class="java.lang.String"/>
+	<field name="field5" class="java.lang.String"/>
+	<field name="field6" class="java.lang.String"/>
+	<field name="field7" class="java.lang.String"/>
+	<field name="field8" class="java.lang.String"/>
+	<field name="field9" class="java.lang.String"/>
+	<field name="field10" class="java.lang.String"/>
+	<field name="categoryName" class="java.lang.String"/>
+	<group name="categoryName" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{categoryName}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="752" height="40" backcolor="#E4E4E4" uuid="b3bd7daf-f10b-4fe2-b1b6-19ac29e7f564">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box padding="0">
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textField textAdjust="StretchHeight">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="20" width="62" height="20" backcolor="#E4E4E4" uuid="4b1e6ebc-6102-4632-96d0-d90c773c74aa">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						</reportElement>
+						<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+							<topPen lineWidth="1.0"/>
+							<leftPen lineWidth="1.0"/>
+							<bottomPen lineWidth="1.0"/>
+							<rightPen lineWidth="1.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Bangla" size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["S/N"]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="StretchHeight">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="62" y="20" width="138" height="20" backcolor="#E4E4E4" uuid="9160cf82-17fc-4b9e-8dc9-9a69e9525668"/>
+						<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+							<topPen lineWidth="1.0"/>
+							<leftPen lineWidth="1.0"/>
+							<bottomPen lineWidth="1.0"/>
+							<rightPen lineWidth="1.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Bangla" size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{header1}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="StretchHeight">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="200" y="20" width="138" height="20" backcolor="#E4E4E4" uuid="39531acb-a537-4347-b438-99e8d3db4f26"/>
+						<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+							<topPen lineWidth="1.0"/>
+							<leftPen lineWidth="1.0"/>
+							<bottomPen lineWidth="1.0"/>
+							<rightPen lineWidth="1.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Bangla" size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{header2}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="StretchHeight">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="338" y="20" width="138" height="20" backcolor="#E4E4E4" uuid="79efb778-2b9c-44b7-8ae9-45ee0398ca7d"/>
+						<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+							<topPen lineWidth="1.0"/>
+							<leftPen lineWidth="1.0"/>
+							<bottomPen lineWidth="1.0"/>
+							<rightPen lineWidth="1.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Bangla" size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{header3}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="StretchHeight">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="476" y="20" width="138" height="20" backcolor="#E4E4E4" uuid="2317231b-20ff-473e-b049-4b2d8243e5c0"/>
+						<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+							<topPen lineWidth="1.0"/>
+							<leftPen lineWidth="1.0"/>
+							<bottomPen lineWidth="1.0"/>
+							<rightPen lineWidth="1.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Bangla" size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{header4}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="StretchHeight">
+						<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="614" y="20" width="138" height="20" backcolor="#E4E4E4" uuid="72685ed3-e248-4bc7-ac18-29fbf83d4c94">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+							<topPen lineWidth="1.0"/>
+							<leftPen lineWidth="1.0"/>
+							<bottomPen lineWidth="1.0"/>
+							<rightPen lineWidth="1.0"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Bangla" size="8" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{header5}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+						<reportElement x="0" y="0" width="752" height="20" uuid="92368c40-f1ac-4c91-8553-b6b8b752a846">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="Bangla" size="8"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{categoryName}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="114" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+			<textField>
+				<reportElement x="592" y="90" width="160" height="20" uuid="60f58885-a9c2-4ab3-8ef0-dcfa0b5f993f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reportDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="1" width="689" height="20" uuid="67c901ee-dc14-4806-88ae-e5b8aacbb56a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bangla" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{headerText1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="24" width="689" height="20" uuid="01a24437-f717-40f4-a636-2a1396c8ed05"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bangla" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{headerText2}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="2" width="60" height="60" uuid="e0080a01-4fc3-4dbd-9671-4ca08f5e1e24"/>
+				<imageExpression><![CDATA[$P{headerImgLeft}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="48" width="689" height="20" uuid="4a635052-5678-4d1e-854a-4383b62c4774"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{headerText3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="72" width="689" height="20" uuid="36561baa-a63a-4094-9b5a-eda78fa0dcbf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{headerText4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Prevent"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="62" height="20" uuid="4cfac19f-9203-452b-975a-d8d9ae8b361c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fieldSerial}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="62" y="0" width="138" height="20" uuid="14fb489b-96d9-4058-a53b-1787d68a47ef">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="138" height="20" uuid="ea6226a6-599b-41d8-b3fd-b768dfffeb19">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field2}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="338" y="0" width="138" height="20" uuid="fd849f02-b117-470a-a668-39f3975d874b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field3}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="476" y="0" width="138" height="20" uuid="e074ad14-1452-46fb-8445-a290e05ee3cc">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field4}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="614" y="0" width="138" height="20" uuid="e074ad14-1452-46fb-8445-a290e05ee3cc">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{field5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50">
+			<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT} == $P{dataSize})]]></printWhenExpression>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="62" y="0" width="138" height="20" uuid="05878e33-2c40-42fe-b9d9-65e07fea2a32">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{footer1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="138" height="20" uuid="fa7ef2dc-ead6-484c-9ed0-dc6c3ada6ff1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{footer2}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="338" y="0" width="138" height="20" uuid="9cade2a5-c95c-4a81-9259-5ad3d750141b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{footer3}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="476" y="0" width="138" height="20" uuid="4b75d510-aef5-4c49-b510-a13d67d8b0fd">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{footer4}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="614" y="0" width="138" height="20" uuid="b7e7d558-6a1c-4c68-8742-78f1822729ed">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bangla" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{footer5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Prevent">
+			<image>
+				<reportElement x="110" y="3" width="210" height="22" uuid="5975a575-214c-4101-adab-af2d00f79395">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{authorizedSignature}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="3" width="110" height="22" uuid="817ffda3-53e8-49c2-bb01-d19707c50fa5">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bangla" size="7"/>
+				</textElement>
+				<text><![CDATA[Authorized Signature : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="612" y="6" width="70" height="22" uuid="27500fea-cbab-482b-bf71-6d38dd543ea9">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bangla" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page No : " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="682" y="6" width="70" height="22" uuid="05cd7743-ca6e-4e16-8bb9-7e1074803172">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Bangla" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

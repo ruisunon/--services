@@ -1,0 +1,46 @@
+=== embedded-elasticsearch
+
+==== Maven dependency
+
+.pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>com.playtika.testcontainers</groupId>
+    <artifactId>embedded-elasticsearch</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+==== Consumes (via `bootstrap.properties`)
+
+* `embedded.elasticsearch.enabled` `(true|false, default is true)`
+* `embedded.elasticsearch.reuseContainer` `(true|false, default is false)`
+* `embedded.elasticsearch.dockerImage` `(default is 'docker.elastic.co/elasticsearch/elasticsearch:8.6.2')`
+** Image versions on https://www.docker.elastic.co/r/elasticsearch[docker.elastic.co]
+* `embedded.elasticsearch.indices` `(indices to create, no indices are created by default)`
+* `embedded.elasticsearch.waitTimeoutInSeconds` `(default is 60 seconds)`
+* `embedded.toxiproxy.proxies.elasticsearch.enabled` Enables both creation of the container with ToxiProxy TCP proxy and a proxy to the `embedded-elasticsearch` container.
+
+
+==== Produces
+
+* `embedded.elasticsearch.clusterName`
+* `embedded.elasticsearch.host`
+* `embedded.elasticsearch.httpPort`
+* `embedded.elasticsearch.transportPort`
+* `embedded.elasticsearch.toxiproxy.host`
+* `embedded.elasticsearch.toxiproxy.port`
+* Bean `ToxiproxyContainer.ContainerProxy elasticsearchContainerProxy`
+
+
+==== Example
+
+To use auto-configured elastic client use these properties in your test `application.properties`:
+
+./src/test/resources/application.properties
+[source,properties]
+----
+spring.data.elasticsearch.client.reactive.endpoints=${embedded.elasticsearch.host}:${embedded.elasticsearch.httpPort}
+spring.elasticsearch.rest.uris=http://${embedded.elasticsearch.host}:${embedded.elasticsearch.httpPort}
+----

@@ -1,0 +1,15 @@
+/* Licensed under Apache-2.0 2021-2022 */
+package com.rxs.apigateway;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+
+@ConfigurationPropertiesScan
+@SpringBootApplication
+public class APIGatewayApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(APIGatewayApplication.class, args);
+    }
+}

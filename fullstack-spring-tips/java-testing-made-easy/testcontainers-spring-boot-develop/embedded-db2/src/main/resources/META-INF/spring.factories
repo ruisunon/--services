@@ -1,0 +1,2 @@
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+  com.playtika.test.db2.EmbeddedDb2BootstrapConfiguration
