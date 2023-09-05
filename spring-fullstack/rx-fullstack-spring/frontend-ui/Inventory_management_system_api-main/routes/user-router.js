@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const userService = require("../services/user-service");
+const { adminCheck, requireAuth } = require("../middlewares/authMiddleware");
+router.post("/signup", adminCheck, userService.signup);
+router.post("/login", userService.login);
+router.get("/logout", requireAuth, userService.logout);
+router.patch("/:id", adminCheck, userService.editUser);
+router.patch("/changePass/:id", requireAuth, userService.changePassword);
+router.get("/", adminCheck, userService.getAllUsers);
+router.get("/:id", adminCheck, userService.getSingleUser);
+module.exports = router;

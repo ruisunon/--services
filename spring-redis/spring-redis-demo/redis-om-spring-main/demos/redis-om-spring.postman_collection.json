@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "d8a5e538-d9a9-46a4-868d-6804306da567",
+		"name": "Redis OM Spring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RedisDocument",
+			"item": [
+				{
+					"name": "Company findAll - Pageable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/name/Redis",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"name",
+								"Redis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company by Name Starting With",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/name/starts/Re",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"name",
+								"starts",
+								"Re"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company by Near Point/Distance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/near?lat=37.384&lon=-122.064&d=30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"near"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "37.384"
+								},
+								{
+									"key": "lon",
+									"value": "-122.064"
+								},
+								{
+									"key": "d",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Companies by Tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/tags?tags=reliable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "reliable"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Companies by Number of Employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/employees/count/182268",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"employees",
+								"count",
+								"182268"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Person by last and first",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/persons/name/Royse/Guy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"persons",
+								"name",
+								"Royse",
+								"Guy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RedisHash",
+			"item": [
+				{
+					"name": "Search Users by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/q?firstName=Brad&lastName=Wilk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"q"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "Brad"
+								},
+								{
+									"key": "lastName",
+									"value": "Wilk"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exists by email (Bloom)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/exists?email=zack@ratm.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"exists"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "zack@ratm.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One User by Last Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/name/Morello",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"name",
+								"Morello"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permits",
+			"item": [
+				{
+					"name": "Permits by construction value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/value/42000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"value",
+								"42000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full-text Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/search/veranda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"search",
+								"veranda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full-text Fuzzy Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/search/%25%25haus%25%25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"search",
+								"%25%25haus%25%25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permits by building type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/building_type/detached",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"building_type",
+								"detached"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permits by city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/city/Lisbon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"city",
+								"Lisbon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permits by work types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/worktypes?types=design,construction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"worktypes"
+							],
+							"query": [
+								{
+									"key": "types",
+									"value": "design,construction"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permits by ALL work types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/worktypes/all?types=construction,design",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"worktypes",
+								"all"
+							],
+							"query": [
+								{
+									"key": "types",
+									"value": "construction,design"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permits by Building Type AND Description",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/building_type_and_description/?buildingType=house&description=new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"building_type_and_description",
+								""
+							],
+							"query": [
+								{
+									"key": "buildingType",
+									"value": "house"
+								},
+								{
+									"key": "description",
+									"value": "new"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permits by City OR Description Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permits/city_or_description/?city=Lagos&description=detached",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permits",
+								"city_or_description",
+								""
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Lagos"
+								},
+								{
+									"key": "description",
+									"value": "detached"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

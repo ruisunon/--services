@@ -1,0 +1,3 @@
+aws:
+  bucket:
+    name: your-bucket-name-here

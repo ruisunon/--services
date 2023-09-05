@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: busybox-init-demo
+  name: busybox-init-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: busybox-init-demo
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: busybox-init-demo
+    spec:
+      containers:
+      - image: busybox
+        imagePullPolicy: Always
+        command: ["/bin/sh","-c","sleep 1000"]
+        name: busybox-1
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      initContainers:
+        - image: busybox
+          imagePullPolicy: Always
+          command: ["/bin/sh","-c","sleep 1000"]
+          name: busybox-init-container
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            
+
+

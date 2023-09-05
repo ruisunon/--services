@@ -1,0 +1,13 @@
+server: 
+  port: 3024
+  servlet:
+    context-path: /shopping-list    
+
+spring: 
+  application:
+    name: shopping-list-service
+  data: 
+      mongodb: 
+          database: shopping-list
+          host: localhost
+          port: 27017  

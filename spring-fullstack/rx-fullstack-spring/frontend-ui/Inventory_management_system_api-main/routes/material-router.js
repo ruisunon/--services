@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const materialService = require("../services/material-service");
+router.get("/for-list", materialService.getMaterialsForList);
+router.get("/", materialService.getAllMaterials);
+router.post("/", materialService.createNewMaterial);
+router.get("/:id", materialService.getSingleMaterial);
+router.patch("/:id", materialService.updateMaterial);
+router.delete("/:id", materialService.deleteProduct);
+module.exports = router;

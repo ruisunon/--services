@@ -1,0 +1,34 @@
+version: "3"
+services:
+  redis:
+    image: redis:6.2.1-alpine
+    network_mode: bridge
+    container_name: redis
+    volumes:
+      - redis-data:/var/lib/redis/data
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+
+  spring-boot-redis-app:
+    image: spring-boot-redis-app:latest
+    network_mode: bridge
+    container_name: spring-boot-redis-app
+    labels:
+      kompose.image-pull-policy: Never
+      kompose.service.type: LoadBalancer
+    expose:
+      - 9080
+    ports:
+      - 9080:9080
+    depends_on:
+      - redis
+    links:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+volumes:
+  redis-data:

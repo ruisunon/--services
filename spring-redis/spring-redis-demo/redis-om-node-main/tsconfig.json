@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "rootDir": ".",
+    "outDir": "./dist",
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"],
+    "paths": {
+      "$lib/*": ["./lib/*"]
+    },
+    "noUncheckedIndexedAccess": true
+  },
+  "exclude": [
+    "node_modules",
+  ],
+  "typedocOptions": {
+    "entryPoints": [
+      "lib/index.ts"
+    ],
+    "out": "docs",
+    "excludePrivate": true,
+    "excludeInternal": true,
+    "readme": "none"
+  }
+}

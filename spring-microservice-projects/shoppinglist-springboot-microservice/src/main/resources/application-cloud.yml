@@ -1,0 +1,6 @@
+spring:     
+  data: 
+      mongodb: 
+          uri: mongodb+srv://${mongo.username}:${mongo.password}@${mongo.cluster}/shopping-list?retryWrites=true&w=majority
+server: 
+  port: 3025

@@ -1,0 +1,32 @@
+GET http://localhost:3000/products
+
+### 
+
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name":"MahiTestr",
+  "picUrl":"Web dev simplified",
+  "price":"329",
+  "profitMargin":"10"
+}
+
+###
+
+GET http://localhost:3000/products/63b213b83a0b8425c7765c89
+
+###
+
+DELETE http://localhost:3000/products/63b213b83a0b8425c7765c89
+
+
+
+###
+
+PATCH http://localhost:3000/products/63b2160761167b2585544b94
+Content-Type: application/json
+
+{
+  "name":"New name2"
+}

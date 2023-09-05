@@ -1,0 +1,19 @@
+node {
+      stage('SCM') {
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: '*/master']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[$class: 'SparseCheckoutPaths',
+                     sparseCheckoutPaths: [[path: 'catalog-service']]
+            ]],
+            submoduleCfg: [],
+            userRemoteConfigs: [[url: 'https://github.com/sivaprasadreddy/geeknight-cloud-native-apps-springcloud.git']]
+        ])
+      }
+
+      stage('Build'){
+          sh 'cd catalog-service && ./mvnw clean package'
+      }
+
+}
