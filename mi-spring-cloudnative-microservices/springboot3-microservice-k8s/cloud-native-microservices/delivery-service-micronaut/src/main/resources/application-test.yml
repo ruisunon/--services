@@ -1,0 +1,8 @@
+micronaut:
+  server:
+    port: ${random.port}
+
+test-resources:
+  containers:
+    rabbitmq:
+      image-name: rabbitmq:3.11.5

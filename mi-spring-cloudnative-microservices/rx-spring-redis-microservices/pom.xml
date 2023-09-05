@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.0</version>
+		<relativePath />
+	</parent>
+
+	<groupId>rx.spring.redis</groupId>
+	<artifactId>spring-redis-microservices</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<sonar.projectKey>spring-redis-microservices</sonar.projectKey>
+		<sonar.organization>rx-data</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<java.version>17</java.version>
+	</properties>
+
+	<modules>
+		<module>driver-management</module>
+		<module>trip-management</module>
+		<module>passenger-management</module>
+		<module>config-service</module>
+		<module>discovery-service</module>
+		<module>employee-service</module>
+		<module>department-service</module>
+		<module>organization-service</module>
+		<module>redis-caching</module>
+		<module>gateway-service</module>
+	</modules>
+	<packaging>pom</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.8</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2022.0.3</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

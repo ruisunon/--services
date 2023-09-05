@@ -1,0 +1,6 @@
+server:
+  port: 5006
+
+logging:
+  level:
+    com.test.log: debug

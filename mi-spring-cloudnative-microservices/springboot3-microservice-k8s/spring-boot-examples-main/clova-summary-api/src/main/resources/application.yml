@@ -1,0 +1,8 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+
+naver_cloud:
+  client:
+    id: ${NAVER_CLOUD_CLIENT_ID}
+    secret: ${NAVER_CLOUD_CLIENT_SECRET}

@@ -1,0 +1,47 @@
+server:
+  port: 9502
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  #OPEN-API
+  com.rxs.store.service.swagger:
+    title: store service
+    description: Spring-boot application using redis as a caching database
+    api-version: 1.0.0
+    contact.name: rxs
+    contact.email: rxs@gmail.com
+    contact.url: https://www.linkedin.com/in/
+
+  #REDIS
+  spring.cache:
+    type: redis
+  spring.redis:
+    host: localhost
+    port: 6380
+    jedis.pool.max-active:  16
+    jedis.pool.max-idle: 8
+    jedis.pool.min-idle: 4
+
+  #HIKARI
+  spring.datasource.hikari:
+    minimumIdle: 5
+    maximumPoolSize: 20
+    idleTimeout:  20000
+    poolName: rxsCP
+    maxLifetime:  200000
+    connectionTimeout: 30000
+  spring.jmx:
+    default-domain: rxs
+
+  #Datasource
+  spring.datasource:
+    url: jdbc:postgresql://localhost:5432/shoppers
+    username: postgres
+    password: postgres
+  spring.jpa:
+    show-sql: true
+    hibernate.ddl-auto: none
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
+    
+   

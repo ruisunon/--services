@@ -1,0 +1,163 @@
+version: '3.3'
+
+volumes:
+  zookeeper_volume:
+  zookeeper_logs_volume:
+  kafka1_volume:
+  kafka2_volume:
+  postgres_volume:
+  mongo_volume:
+  redis_volume:
+  mysql_volume:
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "22181:2181"
+    volumes:
+      - zookeeper_volume:/var/lib/zookeeper/data
+      - zookeeper_logs_volume:/var/lib/zookeeper/logs
+  kafka1:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+    volumes:
+      - kafka1_volume:/var/lib/kafka/data
+
+  kafka2:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "29093:29093"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9093,PLAINTEXT_HOST://localhost:29093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+    volumes:
+      - kafka2_volume:/var/lib/kafka/data
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "9000:8080"
+    depends_on:
+      - kafka1
+      - schema-registry
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9092,kafka2:9093
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
+
+  schema-registry:
+    image: docker.io/bitnami/schema-registry:7.3
+    ports:
+      - '8081:8081'
+    depends_on:
+      - kafka1
+    environment:
+      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+      - SCHEMA_REGISTRY_KAFKA_BROKERS=PLAINTEXT://kafka1:9092,PLAINTEXT://kafka2:9093
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_volume:/data/db
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volume:/data
+
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "shipping_management"
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - mysql_volume:/var/lib/mysql
+
+  kafka-connector-mysql:
+    image: confluentinc/cp-kafka-connect:latest
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka1
+      - kafka2
+      - zookeeper
+      - mysql
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: "PLAINTEXT://kafka1:9092,PLAINTEXT://kafka2:9093"
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: "shipping-management"
+      CONNECT_CONFIG_STORAGE_TOPIC: "__shipping-management-config"
+      CONNECT_OFFSET_STORAGE_TOPIC: "__shipping-management-offsets"
+      CONNECT_STATUS_STORAGE_TOPIC: "__shipping-management-status"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONNECT_VALUE_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONNECT_INTERNAL_KEY_CONVERTER: 'org.apache.kafka.connect.json.JsonConverter'
+      CONNECT_INTERNAL_VALUE_CONVERTER: 'org.apache.kafka.connect.json.JsonConverter'
+      CONNECT_INTERNAL_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONNECT_OFFSET_FLUSH_TIMEOUT_MS: "60000"
+      CONNECT_OFFSET_FLUSH_INTERVAL_MS: "10000"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "localhost"
+    command:
+      - bash
+      - -c
+      - |
+        echo "Installing Kafka Confluent Connector"
+        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.0.0
+        echo "Installing MySQL JDBC Driver"
+        cd /usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib
+        curl https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.25/mysql-connector-java-8.0.25.jar -o mysql-connector-java-8.0.25.jar
+        #
+        echo "Launching Kafka Connect worker"
+        /etc/confluent/docker/run &
+        #
+        echo "Waiting for Kafka Connect to start listening on 0.0.0.0:8083 ⏳"
+        while : ; do
+          curl_status=$$(curl -s -o /dev/null -w %{http_code} http://0.0.0.0:8083/connectors)
+          echo -e $$(date) " Kafka Connect listener HTTP state: " $$curl_status " (waiting for 200)"
+          if [ $$curl_status -eq 200 ] ; then
+          break
+          fi
+          sleep 5
+        done
+        sleep infinity

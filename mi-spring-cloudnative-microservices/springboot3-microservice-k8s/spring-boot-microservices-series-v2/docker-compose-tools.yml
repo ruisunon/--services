@@ -1,0 +1,381 @@
+version: '3.8'
+services:
+
+  postgresql:
+    container_name: postgresql
+    image: postgres:15-alpine
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    environment:
+      - POSTGRES_USER=appuser
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=appdb
+    ports:
+      - "5432:5432"
+    networks:
+      - microservice-network
+
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgresql
+    restart: unless-stopped
+    networks:
+      - microservice-network
+
+  # mongodb:
+  #   container_name: mongodb
+  #   image: mongo:6.0.3
+  #   extra_hosts: ['host.docker.internal:host-gateway']
+  #   volumes:
+  #     - mongo-data:/data/db/mongo
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - microservice-network
+
+  # zipkin-server:
+  #   image: openzipkin/zipkin
+  #   container_name: zipkin-server
+  #   extra_hosts: [ 'host.docker.internal:host-gateway' ]
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 512m
+  #   expose:
+  #     - "9411"
+  #   ports:
+  #     - "9411:9411"
+  #   networks:
+  #     - microservice-network
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:7.3.3
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    healthcheck:
+      test: [ "CMD-SHELL", "echo ruok | nc localhost 2181" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zookeeper:2888:3888
+    networks:
+      - microservice-network
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:7.3.3
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "29092:29092"
+      - "9092:9092"
+      - "9999:9999"
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z localhost 9092" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_JMX_PORT: 9999
+      KAFKA_JMX_HOSTNAME: ${DOCKER_HOST_IP:-127.0.0.1}
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+    networks:
+      - microservice-network
+
+  kafdrop:
+    container_name: kafdrop
+    image: obsidiandynamics/kafdrop
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:19092"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - microservice-network
+
+  config-server:
+    container_name: config-server
+    image: dockertmt/mmv2-config-server-17:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "8888:8888"
+    depends_on:
+      - tempo
+    networks:
+      - microservice-network
+    environment:
+      SPRING_PROFILES_ACTIVE: native
+    labels:
+      logging: "promtail"
+
+  naming-server:
+    container_name: naming-server
+    image: dockertmt/mmv2-service-registry-17:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - microservice-network
+    depends_on:
+      config-server:
+        condition: service_started
+    environment:
+      - SPRING.ZIPKIN.BASEURL= http://zipkin-server:9411/
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888/
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
+    restart: unless-stopped
+    labels:
+      logging: "promtail"
+
+  api-gateway:
+    container_name: api-gateway
+    image: dockertmt/mmv2-api-gateway:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - microservice-network
+    depends_on:
+      - config-server
+      - naming-server
+      - tempo
+      # - mongodb
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATA_MONGODB_HOST=mongodb
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888/
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411/
+    restart: unless-stopped
+    labels:
+      logging: "promtail"
+
+  catalog-service:
+    container_name: catalog-service
+    image: dockertmt/mmv2-catalog-service:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "18080:18080"
+    networks:
+      - microservice-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+      naming-server:
+        condition: service_started
+      postgresql:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE= docker
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888/
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
+    restart: unless-stopped
+    labels:
+      logging: "promtail"
+
+  inventory-service:
+    container_name: inventory-service
+    image: dockertmt/mmv2-inventory-service:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "18081:18081"
+    networks:
+      - microservice-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+      naming-server:
+        condition: service_started
+      postgresql:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE= docker
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888/
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
+    restart: unless-stopped
+    labels:
+      logging: "promtail"
+
+  order-service:
+    container_name: order-service
+    image: dockertmt/mmv2-order-service:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "18282:18282"
+    networks:
+      - microservice-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+      naming-server:
+        condition: service_started
+      postgresql:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE= docker
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888/
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
+    restart: unless-stopped
+    labels:
+      logging: "promtail"
+
+  payment-service:
+    container_name: payment-service
+    image: dockertmt/mmv2-payment-service:0.0.1-SNAPSHOT
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    ports:
+      - "18085:18085"
+    networks:
+      - microservice-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+      naming-server:
+        condition: service_started
+      postgresql:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE= docker
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888/
+      - EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING_KAFKA_BOOTSTRAP-SERVERS=kafka:29092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://tempo:9411
+    labels:
+      logging: "promtail"
+    restart: unless-stopped
+
+  # Observability
+
+  grafana:
+    image: grafana/grafana:9.4.7
+    container_name: grafana
+    depends_on:
+      - loki
+      - prometheus
+      - tempo
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=user
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    volumes:
+      - ./docker/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./docker/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./docker/grafana/grafana.ini:/etc/grafana/grafana.ini
+    networks:
+      - microservice-network
+  loki:
+    image: grafana/loki:2.8.0
+    container_name: loki
+    command: -config.file=/etc/loki/local-config.yaml
+    depends_on:
+      - promtail
+    ports:
+      - "3100:3100"
+    networks:
+      - microservice-network
+
+  promtail:
+    image: grafana/promtail:2.8.0
+    container_name: promtail
+    volumes:
+      - ./docker/promtail/promtail.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - microservice-network
+
+  prometheus:
+    image: prom/prometheus:v2.43.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - microservice-network
+
+  tempo:
+    image: grafana/tempo:2.0.1
+    container_name: tempo
+    command: -config.file /etc/tempo-config.yml
+    ports:
+      - "3110:3100" # Tempo
+      - "4317:4317" # OTLP
+      - "9411:9411" # Zipkin
+    volumes:
+      - ./docker/tempo/tempo.yml:/etc/tempo-config.yml
+    networks:
+      - microservice-network
+networks:
+  microservice-network:
+
+
+volumes:
+  # mongo-data:
+  postgres_data:
+    driver: local
