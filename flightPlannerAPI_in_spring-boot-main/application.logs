@@ -1,0 +1,30 @@
+2023-04-27T00:51:43.152+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h23m20s372ms).
+2023-04-27T02:11:58.960+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h20m15s809ms).
+2023-04-27T03:39:23.227+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h27m24s268ms).
+2023-04-27T05:03:45.984+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h24m22s757ms).
+2023-04-27T05:38:38.281+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=34m52s297ms).
+2023-04-27T07:06:21.036+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h27m42s755ms).
+2023-04-27T07:21:50.157+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m29s119ms).
+2023-04-27T08:25:05.414+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=31m14s866ms).
+2023-04-27T08:54:24.563+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m18s999ms).
+2023-04-27T09:00:53.433+01:00  WARN 16989 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m28s883ms).
+2023-04-27T09:03:30.445+01:00  INFO 16989 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-04-27T09:03:30.454+01:00  INFO 16989 --- [SpringApplicationShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2023-04-27T09:03:30.457+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : alter table aircrafts drop constraint FKhydae7k9137fogr9m4ql8iy1r
+2023-04-27T09:03:30.498+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : alter table airport_flight drop constraint FK1h77bdb32s5yx92wuj8wpgvr6
+2023-04-27T09:03:30.502+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : alter table airport_flight drop constraint FKppkkmsl4s1wj3rea52rf7t78y
+2023-04-27T09:03:30.503+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : alter table bookings drop constraint FK5l0l0i2mqejskc1ds2ivu7v6p
+2023-04-27T09:03:30.508+01:00 ERROR 16989 --- [SpringApplicationShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000478: Unsuccessful: alter table bookings drop constraint FK5l0l0i2mqejskc1ds2ivu7v6p
+2023-04-27T09:03:30.508+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : alter table employees_contacts drop constraint FK1924va0xbes7j5m8hbdfiolmw
+2023-04-27T09:03:30.511+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table aircrafts cascade
+2023-04-27T09:03:30.523+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table airlines cascade
+2023-04-27T09:03:30.531+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table airport_flight cascade
+2023-04-27T09:03:30.533+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table airports cascade
+2023-04-27T09:03:30.536+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table bookings cascade
+2023-04-27T09:03:30.538+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table employees cascade
+2023-04-27T09:03:30.543+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table employees_contacts cascade
+2023-04-27T09:03:30.546+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table passenger cascade
+2023-04-27T09:03:30.547+01:00 ERROR 16989 --- [SpringApplicationShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000478: Unsuccessful: drop table passenger cascade
+2023-04-27T09:03:30.547+01:00 DEBUG 16989 --- [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table seats cascade
+2023-04-27T09:03:30.559+01:00  INFO 16989 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-04-27T09:03:30.562+01:00  INFO 16989 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,0 +1,62 @@
+{
+  "generator-jhipster": {
+    "applicationIndex": 0,
+    "applicationType": "gateway",
+    "applications": {
+      "blog": {
+        "applicationIndex": 1,
+        "clientFramework": "no",
+        "serverPort": "8081"
+      },
+      "store": {
+        "applicationIndex": 2,
+        "clientFramework": "no",
+        "serverPort": "8082"
+      }
+    },
+    "authenticationType": "oauth2",
+    "baseName": "gateway",
+    "buildTool": "gradle",
+    "cacheProvider": "no",
+    "clientFramework": "vue",
+    "clientPackageManager": "npm",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1677564101401,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "devServerPort": 9060,
+    "dtoSuffix": "DTO",
+    "enableGradleEnterprise": false,
+    "enableHibernateCache": false,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "entities": ["Blog", "Post", "Tag", "Product"],
+    "entitySuffix": "",
+    "gradleEnterpriseHost": "",
+    "jhiPrefix": "jhi",
+    "jhipsterVersion": "7.9.3",
+    "jwtSecretKey": "YzkzNzRiMWVlNTFhZjA4YTY5YjliMmE4NzdlNzRhYWFiZTVjN2VlY2EyMDdhMTk3N2I4M2I3YTNmNjlkM2EyYWJlYTY2YzQyYWY4ZTA5NmQyNDI3NjFkZjNkN2NmMmIzNThhNTg5YzIzYTdmY2NhNzZkOTIxYzliMWQyODgxNzE=",
+    "languages": ["en"],
+    "lastLiquibaseTimestamp": 1677564341000,
+    "messageBroker": "no",
+    "monorepository": true,
+    "nativeLanguage": "en",
+    "packageFolder": "com/okta/developer/gateway",
+    "packageName": "com.okta.developer.gateway",
+    "pages": [],
+    "prodDatabaseType": "postgresql",
+    "reactive": true,
+    "searchEngine": "no",
+    "serverPort": 8080,
+    "serviceDiscoveryType": "eureka",
+    "skipCheckLengthOfIdentifier": false,
+    "skipClient": false,
+    "skipCommitHook": true,
+    "skipFakeData": false,
+    "skipUserManagement": true,
+    "testFrameworks": ["cypress"],
+    "websocket": "no",
+    "withAdminUi": true
+  }
+}

@@ -1,0 +1,6 @@
+# pet clinic sample list of endpoints to target
+
+http://${LB_IP}/api/customer/owners
+http://${LB_IP}/api/vet/vets
+http://${LB_IP}/api/gateway/owners/6
+http://${LB_IP}/api/customer/owners/6/pets/2
